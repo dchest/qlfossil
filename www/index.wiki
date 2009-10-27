@@ -41,4 +41,4 @@ just dumb timeline of events.
 <h3>Contact</h3>
 
 I want to hear your feedback! [mailto:dmitry@codingrobots.com | Email me] or
-use the built-in [reportlist | ticket tracker].
+use the built-in ticket tracker.
