@@ -35,8 +35,8 @@ need to restart your Mac.
 
 Locate Fossil repository (not working copy!) in Finder and press Space. BOOM!
 
-Currently QLFossil doesn't know anything about tags or branches, it displays
-just dumb timeline of events.
+QLFossil understands repositories with <i>.fossil</i> and <i>.fsl</i>
+extensions. Currently it doesn't know anything about tags or branches, it displays just a dumb timeline of events.
 
 <h3>Contact</h3>
 
