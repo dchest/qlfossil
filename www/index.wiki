@@ -1,0 +1,39 @@
+<title>QLFossil Home Page</title>
+
+<img src="screenshot.jpg" align="right" hspace=10>
+
+<h3>About QLFossil</h3>
+
+QLFossil is a Quick Look plugin for Mac OS X to display 
+[http://www.fossil-scm.org | Fossil] repositories. It displays repository 
+name and description, and timeline in Quick Look thumbnails and previews.
+
+IDs of events have different background colors:
+<table cellpadding=3>
+<tr>
+<td bgcolor=#CCF>check-ins</td>
+<td bgcolor=#CF6>tickets</td>
+<td bgcolor=#FC6>wiki events</td>
+</tr>
+</table>
+
+<h3>Download</h3>
+
+[http://c0043312.cdn.cloudfiles.rackspacecloud.com/QLFossil.zip | QLFossil.zip] (17 KB, Version 1.0)
+
+<h3>Installation</h3>
+
+Unzip, then copy <i>QLFossil.qlgenerator</i> to <i>~/Library/QuickLook/</i> (create this
+folder if it doesn't exist) or <i>/Library/QuickLook/</i>. Probably, you'll
+need to restart your Mac.
+
+<b>Requirements:</b> QLFossil should be compatible with Mac OS X 10.5 and later,
+ however it's only tested on Mac OS X 10.6. It doesn't require fossil to be
+ installed, it reads data directly from repositories.
+
+<h3>Usage</h3>
+
+Locate Fossil repository (not working copy!) in Finder and press Space. BOOM!
+
+Currently QLFossil doesn't know anything about tags or branches, it displays
+just dumb timeline of events.
