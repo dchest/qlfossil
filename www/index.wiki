@@ -37,3 +37,8 @@ Locate Fossil repository (not working copy!) in Finder and press Space. BOOM!
 
 Currently QLFossil doesn't know anything about tags or branches, it displays
 just dumb timeline of events.
+
+<h3>Contact</h3>
+
+I want to hear your feedback! [mailto:dmitry@codingrobots.com | Email me] or
+use the built-in [reportlist | ticket tracker].
