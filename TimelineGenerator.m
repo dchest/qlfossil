@@ -59,9 +59,9 @@ NSMutableString *HTMLTimelineForDatabase(const char *database)
     if (key && value && 
         (strstr(key, "project-name") == key ||
          strstr(key, "project-description") == key /*||
-                                                    strstr(key, "last-sync-url") == key*/)) {
-                                                      [html appendFormat:@"<div class='%s'>%s</div>", key, value];
-                                                    }
+            strstr(key, "last-sync-url") == key*/)) {
+         [html appendFormat:@"<div class='%s'>%s</div>", key, value];
+    }
   }
   sqlite3_finalize(st);
   
