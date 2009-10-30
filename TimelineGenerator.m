@@ -60,7 +60,7 @@ NSMutableString *HTMLTimelineForDatabase(const char *database)
         (strcmp(key, "project-name") == 0 ||
          strcmp(key, "project-description") == 0 /*||
          strcmp(key, "last-sync-url") == 0*/)) {
-         [html appendFormat:@"<div class='%s'>%s</div>", key, value];
+      [html appendFormat:@"<div class='%s'>%s</div>", key, value];
     }
   }
   sqlite3_finalize(st);
@@ -68,9 +68,9 @@ NSMutableString *HTMLTimelineForDatabase(const char *database)
   [html appendString:@"</div>"];
   
   sql = "SELECT bgcolor, type, datetime(mtime,'localtime') AS timestamp, "
-  "substr(uuid,0,10) AS uuid, comment, user FROM event "
-  "JOIN blob where blob.rid = event.objid "
-  "ORDER BY mtime DESC limit 20";
+        "substr(uuid,0,10) AS uuid, comment, user FROM event "
+        "JOIN blob where blob.rid = event.objid "
+        "ORDER BY mtime DESC limit 20";
   
   rc = sqlite3_prepare_v2(db, sql, -1, &st, 0);
   
