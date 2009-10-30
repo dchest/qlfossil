@@ -17,9 +17,7 @@ OSStatus GenerateThumbnailForURL(void *thisInterface,
 {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
-  
-  // Use webkit render
-  
+    
   NSMutableString *html = HTMLTimelineForDatabase(
                                 [[(NSURL*)url path] fileSystemRepresentation],
                                 12);
@@ -47,7 +45,6 @@ OSStatus GenerateThumbnailForURL(void *thisInterface,
     CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true);
   }
   
-  // Get a context to render into
   CGContextRef cgContext = 
     QLThumbnailRequestCreateContext(thumbnail, thumbSize, false, NULL);
   NSGraphicsContext* context = 
