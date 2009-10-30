@@ -1,11 +1,11 @@
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 
-NSMutableString *HTMLTimelineForDatabase(const char *database)
+NSMutableString *HTMLTimelineForDatabase(const char *database, int limit)
 {
   sqlite3 *db;
   int rc;
-  char *sql;
+  const char *sql;
   sqlite3_stmt *st;
   const char *key, *value;
   
@@ -67,11 +67,13 @@ NSMutableString *HTMLTimelineForDatabase(const char *database)
   
   [html appendString:@"</div>"];
   
-  sql = "SELECT bgcolor, type, datetime(mtime,'localtime') AS timestamp, "
-        "substr(uuid,0,10) AS uuid, comment, user FROM event "
-        "JOIN blob where blob.rid = event.objid "
-        "ORDER BY mtime DESC limit 20";
-  
+  sql = [[NSString stringWithFormat:
+         @"SELECT bgcolor, type, datetime(mtime,'localtime') AS timestamp, "
+          "substr(uuid,0,10) AS uuid, comment, user FROM event "
+          "JOIN blob where blob.rid = event.objid "
+          "ORDER BY mtime DESC limit %d", limit] UTF8String];
+
+  NSLog(@"%s", sql);
   rc = sqlite3_prepare_v2(db, sql, -1, &st, 0);
   
   BOOL isOdd = NO;

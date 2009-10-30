@@ -18,7 +18,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   NSString *html = HTMLTimelineForDatabase(
-                            [[(NSURL*)url path] fileSystemRepresentation]);
+                            [[(NSURL*)url path] fileSystemRepresentation], 100);
    
   if (!html || [html isEqualToString:@""])
     goto out;

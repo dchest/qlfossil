@@ -1,2 +1,2 @@
 
-NSMutableString *HTMLTimelineForDatabase(const char *database);
+NSMutableString *HTMLTimelineForDatabase(const char *database, int limit);

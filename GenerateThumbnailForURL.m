@@ -21,7 +21,8 @@ OSStatus GenerateThumbnailForURL(void *thisInterface,
   // Use webkit render
   
   NSMutableString *html = HTMLTimelineForDatabase(
-                                [[(NSURL*)url path] fileSystemRepresentation]);
+                                [[(NSURL*)url path] fileSystemRepresentation],
+                                12);
   [html appendString:@"<div style='font-size: 120px; position: absolute; "
                       " bottom: 0; background: white; width: 100%; color: #555;"
                       " font-weight: bold; "
