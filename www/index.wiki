@@ -19,7 +19,7 @@ IDs of events have different background colors:
 
 <h3>Download</h3>
 
-[http://c0043312.cdn.cloudfiles.rackspacecloud.com/QLFossil.zip | QLFossil.zip] (17 KB, Version 1.1)
+[http://c0043312.cdn.cloudfiles.rackspacecloud.com/QLFossil.zip | QLFossil.zip] (17 KB, Version 1.2)
 
 <h3>Installation</h3>
 
