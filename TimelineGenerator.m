@@ -73,7 +73,6 @@ NSMutableString *HTMLTimelineForDatabase(const char *database, int limit)
           "JOIN blob where blob.rid = event.objid "
           "ORDER BY mtime DESC limit %d", limit] UTF8String];
 
-  NSLog(@"%s", sql);
   rc = sqlite3_prepare_v2(db, sql, -1, &st, 0);
   
   BOOL isOdd = NO;
@@ -110,9 +109,7 @@ NSMutableString *HTMLTimelineForDatabase(const char *database, int limit)
     [html appendString:@"</div>\n\n"];
     isOdd = !isOdd;
   }
-  
-  //printf("%s", [html UTF8String]);
-  
+    
   sqlite3_finalize(st);
   
   out:
