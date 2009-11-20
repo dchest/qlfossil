@@ -42,29 +42,51 @@ NSMutableString *HTMLTimelineForDatabase(const char *database, int limit)
   
   rc = sqlite3_prepare_v2(db, sql, -1, &st, 0);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "QLFossil: SQL error");
-    goto out;
-  }
-  
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "QLFossil: SQL error");
+    fprintf(stderr, "QLFossil: SQL error (1)");
     goto out;
   }
   
   [html appendString:@"<div class=info>"];
   
+  NSString *projectName = @"", 
+           *projectDescription = @"", 
+           *lastSyncURL = @"";
+ 
   while (sqlite3_step(st) == SQLITE_ROW) {
     key = (char *)sqlite3_column_text(st, 0);
     value = (char *)sqlite3_column_text(st, 1);
-    if (key && value && 
-        (strcmp(key, "project-name") == 0 ||
-         strcmp(key, "project-description") == 0 /*||
-         strcmp(key, "last-sync-url") == 0*/)) {
-      [html appendFormat:@"<div class='%s'>%s</div>", key, value];
+    if (key && value) {
+      if (strcmp(key, "project-name") == 0) {
+        projectName = [NSString stringWithUTF8String:value];
+      } else if (strcmp(key, "project-description") == 0) {
+        projectDescription = [NSString stringWithUTF8String:value];
+      } else if (strcmp(key, "last-sync-url") == 0) {
+        // remove username/password http://username:password@example.com
+        NSMutableString *url = [NSMutableString stringWithUTF8String:value];
+        NSString *protocol = @"";
+        if ([url hasPrefix:@"https://"]) {
+          protocol = @"https://";
+        } else if ([url hasPrefix:@"http://"]) {
+          protocol = @"http://";
+        }
+        if ([protocol length] > 0) {
+          NSRange r = [url rangeOfString:@"@"];
+          if (r.location != NSNotFound) {
+            [url deleteCharactersInRange:NSMakeRange(0, r.location+r.length)];
+          }
+        }
+        lastSyncURL = [NSString stringWithFormat:@"%@%@", protocol, url];
+      }
     }
   }
   sqlite3_finalize(st);
   
+  [html appendFormat:@"<div class='project-name'>%@</div>\n"
+                      "<div class='project-description'>%@</div>\n"
+                      "<div class='last-sync-url'><a href='%@'>%@</a></div>\n", 
+                      projectName, 
+                      projectDescription,
+                      lastSyncURL, lastSyncURL];
   [html appendString:@"</div>"];
   
   sql = [[NSString stringWithFormat:
@@ -74,7 +96,11 @@ NSMutableString *HTMLTimelineForDatabase(const char *database, int limit)
           "ORDER BY mtime DESC limit %d", limit] UTF8String];
 
   rc = sqlite3_prepare_v2(db, sql, -1, &st, 0);
-  
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "QLFossil: SQL error (2)");
+    goto out;
+  }
+
   BOOL isOdd = NO;
   while (sqlite3_step(st) == SQLITE_ROW) {
     // 0 - bgcolor
