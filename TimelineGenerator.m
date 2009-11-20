@@ -73,6 +73,8 @@ NSMutableString *HTMLTimelineForDatabase(const char *database, int limit)
           NSRange r = [url rangeOfString:@"@"];
           if (r.location != NSNotFound) {
             [url deleteCharactersInRange:NSMakeRange(0, r.location+r.length)];
+          } else {
+            [url deleteCharactersInRange:NSMakeRange(0, [protocol length])];  
           }
         }
         lastSyncURL = [NSString stringWithFormat:@"%@%@", protocol, url];
