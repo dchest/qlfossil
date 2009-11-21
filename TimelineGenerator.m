@@ -35,6 +35,7 @@ NSMutableString *HTMLTimelineForDatabase(const char *database, int limit)
    ".user { color: #777; background: #f4f4f4; "
    "        font-style: oblique; padding: 0 5px } "
    ".odd { background: #E9F0FC } "
+   ".count { padding: 10px; color: #777 } "
    "</style>"
    ];
   
@@ -104,6 +105,7 @@ NSMutableString *HTMLTimelineForDatabase(const char *database, int limit)
   }
 
   BOOL isOdd = NO;
+  uint64 num = 0;
   while (sqlite3_step(st) == SQLITE_ROW) {
     // 0 - bgcolor
     [html appendString:@"<div "];
@@ -136,8 +138,25 @@ NSMutableString *HTMLTimelineForDatabase(const char *database, int limit)
       [html appendFormat:@"<span class=user>%s</span>\n", value];
     [html appendString:@"</div>\n\n"];
     isOdd = !isOdd;
+    num++;
   }
     
+  sqlite3_finalize(st);
+  
+  
+  sql = "SELECT count(*) FROM event";
+  
+  rc = sqlite3_prepare_v2(db, sql, -1, &st, 0);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "QLFossil: SQL error (1)");
+    goto out;
+  }
+  
+  while (sqlite3_step(st) == SQLITE_ROW) {
+    uint64 count = sqlite3_column_int64(st, 0);
+    [html appendFormat:@"<div class='count'>Showed %d of %d events.</div>",
+      num, count];
+  }
   sqlite3_finalize(st);
   
   out:
